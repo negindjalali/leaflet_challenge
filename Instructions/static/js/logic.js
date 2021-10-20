@@ -19,20 +19,18 @@ var map = L.map("map", {
 // adding one 'graymap' tile layer to the map.
 satellitemap_background.addTo(map);
 
-// layers for two different sets of data, earthquakes and tectonicplates.
-// var tectonicplates = new L.LayerGroup();
+// layers for one set of data,tectonicplates.
+
 var earthquakes = new L.LayerGroup();
 
 // base layers
 var baseMaps = {
   Satellite: satellitemap_background,
-//   Grayscale: graymap_background,
   Outdoors: outdoors_background
 };
 
 // overlays 
 var overlayMaps = {
-//   "Tectonic Plates": tectonicplates,
   "Earthquakes": earthquakes
 };
 
@@ -43,12 +41,9 @@ L
   .addTo(map);
 d3.json(queryUrl).then(function(data){
     console.log(data)
-// function markerSize(magnitude) {
-//         return Math.magnitude * 1000;
-//       }
 
 var geometry = data.features
-
+// define color gradients
 for(var i=0; i< geometry.length; i++){
         var color = "";
     if (geometry[i].geometry.coordinates[2] > 20) {
@@ -63,6 +58,7 @@ for(var i=0; i< geometry.length; i++){
     else {
         color = "yellow";
     }
+  // add circular markers
     var lat = geometry[i].geometry.coordinates[1]
     var lng = geometry[i].geometry.coordinates[0]
     L.circle([lat,lng],{
