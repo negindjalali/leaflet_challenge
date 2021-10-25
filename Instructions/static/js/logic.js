@@ -68,7 +68,11 @@ for(var i=0; i< geometry.length; i++){
         radius: 100000,
         radius: (geometry[i].properties.mag)*80000
     }
-    ).bindPopup(`<h3>${geometry[i].properties.place}</h3><hr><p>${(geometry[i].properties.status)}</p><hr><p>${(geometry[i].properties.time)}</p>`).addTo(map)
+    ).bindPopup(`<h3>${geometry[i].properties.place}</h3>
+    <hr><p> status: ${(geometry[i].properties.status)}</p>
+    <hr><p>time: ${(geometry[i].properties.time)}</p>
+    <hr><p>deptj: ${geometry[i].geometry.coordinates[4]}</p>
+    <hr><p>magnitude: ${(geometry[i].properties.mag)}</p>`).addTo(map)
 };
 function getColor(d) {
     return d > 20   ? 'red' :
@@ -85,7 +89,7 @@ legend.onAdd = function (map) {
     grades = [0, 5, 10, 20],
     labels = [];
 
-    div.innerHTML+='Magnitude<br><hr>'
+    div.innerHTML+='Depth<br><hr>'
 
     // loop through our density intervals and generate a label with a colored square for each interval
     for (var i = 0; i < grades.length; i++) {
